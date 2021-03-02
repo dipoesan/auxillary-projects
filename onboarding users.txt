@@ -1,0 +1,31 @@
+#!/bin/bash
+  
+count=0
+
+#the code  below is to specify where this script is going to read the names from 
+
+for i in $(cat /Shell/names.csv)
+
+do
+
+#the line below is to display a message when the users are created
+
+echo "Adding $i as a user into the system"
+
+#on this line, we have specified the group users should be added to, and also that they should have a home directory
+#the "useradd" command also checks if a user already exists
+
+useradd -m -g developers $i
+
+#below, we are creating a ".ssh" folder for all users
+
+mkdir /home/$i/.ssh
+
+#below we are going to create an "authorized_keys" folder and also append some data into it
+
+printf "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzKZyicHxIkklSrNlxsJyyTrcIdBIt84Z0cQb3R4k0jH53kxkaT5hP8tfWTe62LXi7vV86fY+SX7TBNM76XGCbw/6vrMGegm6J1x2i1AiLNwq5nqTjOGn0A
+Iwku4IlCCLAB7tdfRyVuCarmBlwny3lzRyybIUAWXR/D6vpN09MsDILbKdhay+Q/p9OUBMSLPqXdY/QIh/Oe3rVv1lwY3AohNfq7V3tO88zKswfA5iiexNiSYX1myT0OrX8cBE771j9quoNZhQgaLI1mIMtAvnHQChrn9k2nUaO/B
+MBCQGol5XzGv1ado7hgoVPoluIUD+FGNo/pH4zcmDLICH6drXY/C9MESnkMUPLFxBXKO/OitApY71vRao9nAhAwpVMsy6FqiOb5uawhvhoHYIHTV/f4EtagVagRMP2PxYMYR6jykIV4MPJTkCm+lGhTyMlRu+qRQjdLn8AAtHf4aE
+V8dIkoGh088DI7eA/4o0wz4OV4upH5ewSFS+5IHmRECEW5Nc=" >> /home/$i/.ssh/authorized_keys
+
+done
